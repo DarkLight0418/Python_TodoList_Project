@@ -1,4 +1,4 @@
-pyinstaller -F -w -n=Todo_list --hidden-import 'todo_func.Todo_list' --add-data "todo_func.py:." TodoList.py
+pyinstaller -F -w --icon=핫.ico -n=Todo_list --hidden-import 'todo_func.Todo_list' --add-data "todo_func.py:." TodoList.py
 
 pyinstaller Todo_list.spec
 
