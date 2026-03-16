@@ -22,8 +22,25 @@ class TodoApp:
                         )
         title.pack(side="top", ipady="10", pady="30")
 
-        self.listbox = tk.Listbox(root, selectmode='extended', height=0)
-        self.listbox.pack(pady=10)
+        # 리스트 박스 + 스크롤바 전용 프레임
+        list_frame = tk.Frame(root)
+        list_frame.pack(pady=10)
+        
+        self.scrollbar = tk.Scrollbar(list_frame, orient="vertical")
+        self.scrollbar.pack(side="right", fill="y")
+
+        self.listbox = tk.Listbox(
+            list_frame, 
+            selectmode='extended', 
+            height=3, 
+            width=20,
+            yscrollcommand=self.scrollbar.set,
+        )
+        self.listbox.pack(side="left")
+
+        self.listbox.config(yscrollcommand=self.scrollbar.set)
+        self.scrollbar.config(command=self.listbox.yview)
+
 
         # 할 일 추가 버튼
         add_button = tk.Button(root, text="할 일 추가", width=15, command=self.add_todo_popup)
@@ -42,6 +59,8 @@ class TodoApp:
         
         # 할 일 목록 초기화
         self.refresh_listbox()
+
+
 
     def add_todo_popup(self):
         """
@@ -111,3 +130,5 @@ class TodoApp:
 root = tk.Tk()
 app = TodoApp(root)
 root.mainloop()
+
+# Tkinter GUI 설계에서 전문가들이 쓰는 패턴 7가지 gpt한테 물어보기
